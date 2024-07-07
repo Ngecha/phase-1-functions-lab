@@ -1,27 +1,21 @@
-let distanceFromHq;
-let hq = 42;
-let distance;
 
-function distanceFromHqInBlocks(distanceFromHq){
-    distance = Math.abs(distanceFromHq-hq)
-    return distance;
+function distanceFromHqInBlocks(pickupPoint, hq=42){
+    return Math.abs(pickupPoint-hq);
+} 
+
+function distanceFromHqInFeet (pickupPoint, hq=42){
+return distanceFromHqInBlocks (pickupPoint, hq) *264;
 }
 
-function distanceFromHqInFeet (distanceFromHq){
-    return distanceFromHqInBlocks(distanceFromHq)*264;
+function distanceTravelledInFeet(start, destination){
+    return Math.abs(start-destination)*264;
 }
-
-function distanceTravelledInFeet(start,destination) {
-    distance = Math.abs(start - destination)*264;
-    return distance;
-}
-
 function calculatesFarePrice(start, destination){
-    if (distanceFromHqInFeet(start, destination)<=400){
+    if (distanceTravelledInFeet(start, destination)<=400){
         return 0;
-    }else if(distanceTravelledInFeet(start, destination)>400 && distanceTravelledInFeet(start, destination)<=2000){
-        return ((distanceTravelledInFeet(start, destination)-400)*0.02);
-    } else if ( distanceTravelledInFeet(start, destination)>2000 && distanceTravelledInFeet(start, destination)<2500){
+    } else if(distanceFromHqInFeet(start, destination) >=400 && distanceTravelledInFeet(start, destination)<=2000){
+        return (distanceTravelledInFeet(start, destination)-400)* 0.02;
+    }else if(distanceTravelledInFeet(start, destination)>=2000 && distanceTravelledInFeet(start, destination)<2500){
         return 25;
     }else{
         return 'cannot travel that far';
